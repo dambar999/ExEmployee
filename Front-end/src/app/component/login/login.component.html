@@ -1,0 +1,150 @@
+<!-- <p>
+  login works!
+</p> -->
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+	<title>Ex-Employee Portal - Login</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" />
+
+	<!-- Custom styles for this template -->
+	<!-- <link href="styles.css" rel="stylesheet" type="text/css" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="buttons.css"> -->
+
+	
+</head>
+
+<body class="body-tag" style=" color:coral; ">
+
+	<nav class=" navbar navbar-dark bg-light flex-md-nowrap p-0 shadow logonavbar">
+		<a class="navbar-brand col-sm-1 col-md-2 mr-0"><img src={{accoliteLogoPic}}></a>
+	</nav>
+
+	<div class="container barside back-ground">
+		<div class="row main-div">
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4 ">
+
+				<div style="text-align:center ; position: relative; bottom: 50px !important;" class="col-8 mr-auto ml-auto login ">
+
+					<span style=" font-size: 25px; ">Welcome to Accolite Ex-Employee Portal</span>
+					<div class="col-4 mr-auto ml-auto border-bottom"  style=" height:50px; " >
+						<input type="text" placeholder="Email Id" id="emailId" [(ngModel)]="login.email" required />
+					</div>
+					<div class="col-4 mr-auto ml-auto border-bottom  "  style=" height:50px; ">
+						<!-- <span class="text-center"> -->
+							<input type="password" placeholder="Password" id="password" [(ngModel)]="login.password" required>
+							<!-- <i style="position:relative; left:85px;" id="pass-status" class="fa fa-eye" aria-hidden="true"
+								(click)="myFunctionShowPass()"></i> -->
+						<!-- </span> -->
+					</div>
+
+					<i style="position:relative; left:150px; bottom:75px;" id="pass-status" class="fa fa-eye" aria-hidden="true"
+								(click)="myFunctionShowPass()"></i>
+
+					<div class="col-6 mr-auto ml-auto button-div">
+						<!-- <button type="submit" class="btn-login">Login</button> -->
+						<button type="submit" class="btn-login login-btn" (click)="checkpassword()">Login</button>
+						<button type="submit" class="btn btn-block btn-social btn-google" (click)="googleLogin()">
+							<span class="fab fa-google"></span> Login with Google
+						</button>
+					</div>
+					<div class="col-md-12" style="padding-left: 240px ; position:relative;  bottom:60px; z-index: 1;">
+						<a routerLink="/forgotpassword" routerLinkActive="active" class="nav-link">Forgot your password?</a>
+					</div>
+
+
+				</div>
+
+			</main>
+		</div>
+	</div>
+	<div class="footer">
+			
+		<div class="socialmediafooter">
+				<div style=" font-weight: 700 ; color: white " class="connectfooter">
+						Connect with Us
+					</div>
+					<br>
+			<ul style=" list-style-type: none !important; padding: 0; " >
+				
+				<li >
+						<a  style=" color: #DDD;  "   href="https://www.facebook.com/AccoliteSoftwareIndiaPvtLtd/"><img width="42" style=" border-radius: 5px; "  height="42" src={{faceBookLogoPic}}></a>
+				</li>
+				<br>
+				 <li>
+						<a  style=" color: #DDD "  href="https://www.linkedin.com/company/accolite/?originalSubdomain=in"><img width="42"  style=" border-radius: 5px;"  height="42" src={{linkedInLogoPic}}></a>
+				</li> 
+				<br>
+				 <li> 
+						<a style=" color: #DDD " href="https://twitter.com/accolite1?lang=en"><img width="42"  style=" border-radius: 5px;" height="42" src={{twitterLogoPic}}></a>
+				</li>  
+			</ul>
+		</div>
+		
+		<div class="hydaddress" > 	
+			<span style=" font-weight: 700 ; color: white " class="connectfooter" >Hyderabad office</span><br>
+			Floor: 4, Survey Numbers: 27/1, 27/2, 27/3 and 27/4,<br>
+			Holiday Inn Express & Suites, SRoad No: 2,Nanakramguda,<br>
+			Gachibowli, Hyderabad, Telangana 500032
+			<br>
+		
+			<br>
+			<span style=" font-weight: 700 ; color: white ; position: relative; right: 27px;" class="connectfooter">Bangalore Office</span><br>
+			2nd Floor, Umiya Business Bay, Tower 1,<br> 
+			Cessna Business Park, Marathahalli-Sarjapur Outer Ring Road,<br>
+			Kadubeesanahalli,Bengaluru, Karnataka 560103
+		</div>
+	
+		<div class="chnaddress"> 
+				<span style=" font-weight: 700 ; color: white " class="connectfooter">Chennai Office</span><br>
+				Workafella Business Center, IIFL Towers,<br> 
+				Level 7, MGR Main Road, Perungudi,<br> 
+				Chennai - 600096,; Tamil Nadu 
+				<br>
+
+				<br>
+				<span style=" font-weight: 700 ; color: white " class="connectfooter">Delhi Office</span><br>
+				Unit No.133,134,135; 1st Floor,DLF Towers,<br>
+				Shivaji Marg, Opposite Audi Showroom, <br>
+				New Delhi
+		</div>
+
+		</div>
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+	<script>
+		function myFunctionShowPass() {
+			var x = document.getElementById("password");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+
+
+</body>
+
+</html>

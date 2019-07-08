@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+	<title>Ex-Employee Portal - Contacts</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<!-- Custom styles for this template -->
+	<!-- <link href="css/styles.css" rel="stylesheet" type="text/css" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="css/buttons.css"> -->
+</head>
+
+<body>
+	<nav class=" navbar navbar-dark bg-light flex-md-nowrap p-0 shadow logonavbar"> <a style=" position:relative ; right: 250px "
+		class="navbar-brand col-sm-1 col-md-2 mr-0"><img src={{accoliteLogoPic}}></a>
+	<ul class="navbar-nav px-3">
+		<li class="nav-item text-nowrap"> <a style=" position:relative ; left: 250px " class="nav-link">Welcome {{empName}}
+			
+				<div class="dropdown">
+						<span class="dropbtn" ><img src={{loginPic}} alt="Welcome"></span>
+						<div class="dropdown-content">
+							<a  style=" color:black " routerLink="/profile" routerLinkActive="active">Profile</a>
+							<a  style=" color:black ;  cursor: pointer;" (click)="logout()">Logout</a>
+						</div>
+					</div>
+
+
+		</a>
+			
+			</li>
+	</ul>
+</nav>
+
+	<div class="container barside">
+		<div class="row">
+			<nav class="col-md-1 d-none d-md-block bg-light sidebar">
+				<div>
+					<ul class="nav flex-column">
+						<li class="nav-item"> <a class="nav-link" routerLink="/document" routerLinkActive="active"> <img
+									src={{documentPic}} alt=""><br>
+								Documents</a></li>
+						<li *ngIf="!checkhr" class="nav-item"> <a class="nav-link" routerLink="/contacts" routerLinkActive="active"> <img
+									src={{contactsPic}} alt=""><br>
+								Contacts</a></li>
+						<li class="nav-item"> <a class="nav-link" routerLink="/ticket" routerLinkActive="active"> <img
+									src={{raiseTicketPic}} alt=""><br>
+								Raise Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+						<li class="nav-item"> <a class="nav-link" routerLink="/listticket" routerLinkActive="active"> <img
+									src={{listTicketPic}} alt=""><br>
+								List Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+
+						<li *ngIf="checkhr != '1'" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <img
+							src={{profilePic}} alt=""><br>
+						Profile</a>
+				</li>
+				<li class="nav-item"> <a class="nav-link" routerLink="/login" routerLinkActive="active"> <img
+							src={{logoutPic}} alt="" (click)="logout()"><br />Logout</a>
+				</li>
+						
+
+					</ul>
+					<!--<div class="clearfix border-bottom"></div>-->
+					
+
+				</div>
+			</nav>
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-11 px-4">
+				<div id="sectionheader"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1>Contacts</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<!--<button class="btn-top btn-addnew">+ Edit Information</button>-->
+					</div>
+				</div>
+				<div class="col-12">
+
+					<h2>Finance Contact </h2>
+
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-4">
+								<legend>Contact Name</legend>
+								<p>HR Pavani</p>
+							</div>
+							<div class="col-4">
+								<legend>Email ID</legend>
+								<p>hr-pavani@accoliteindia.com</p>
+							</div>
+							<div class="col-4">
+								<legend>Contact No.</legend>
+								<p>+91-1234567890, +91-0987654321</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<h2>HR Contact </h2>
+
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-4">
+								<legend>Contact Name</legend>
+								<p>HR Pavani</p>
+							</div>
+							<div class="col-4">
+								<legend>Email ID</legend>
+								<p>hr-pavani@accoliteindia.com</p>
+							</div>
+							<div class="col-4">
+								<legend>Contact No.</legend>
+								<p>+91-1234567890, +91-0987654321</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<h2>Admin Contact </h2>
+
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-4">
+								<legend>Contact Name</legend>
+								<p>HR Pavani</p>
+							</div>
+							<div class="col-4">
+								<legend>Email ID</legend>
+								<p>hr-pavani@accoliteindia.com</p>
+							</div>
+							<div class="col-4">
+								<legend>Contact No.</legend>
+								<p>+91-1234567890, +91-0987654321</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<h2>Office Addresses</h2>
+
+					<div class="inputfield">
+						<div class="row">
+
+							<div class="col-8">
+								<p><strong>Corporate Office</strong></p>
+								<address>Floor: 4, Survey Numbers: 27/1, 27/2, 27/3 and 27/4, Holiday Inn Express & Suites, Road No: 2,
+									Nanakramguda, Gachibowli, Hyderabad - 500032. Phone: +91 40 30011234</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Hyderabad</p>
+								<address>Floor: 4, Survey Numbers: 27/1, 27/2, 27/3 and 27/4, Holiday Inn Express & Suites, Road No: 2,
+									Nanakramguda, Gachibowli, Hyderabad - 500032. Phone: +91 40 30011234</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Mumbai</p>
+								<address>Level 4 , A wing, Dynasty Business Park, Office 426, Andheri - Kurla Road Andheri East, Mumbai
+									- 400059, Maharashtra</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Hyderabad</p>
+								<address>Floor: 4, Survey Numbers: 27/1, 27/2, 27/3 and 27/4, Holiday Inn Express & Suites, Road No: 2,
+									Nanakramguda, Gachibowli, Hyderabad - 500032. Phone: +91 40 30011234</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Mumbai</p>
+								<address>Level 4 , A wing, Dynasty Business Park, Office 426, Andheri - Kurla Road Andheri East, Mumbai
+									- 400059, Maharashtra</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Hyderabad</p>
+								<address>Floor: 4, Survey Numbers: 27/1, 27/2, 27/3 and 27/4, Holiday Inn Express & Suites, Road No: 2,
+									Nanakramguda, Gachibowli, Hyderabad - 500032. Phone: +91 40 30011234</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+							<div class="clearfix"></div>
+
+							<div class="col-8">
+								<p>Mumbai</p>
+								<address>Level 4 , A wing, Dynasty Business Park, Office 426, Andheri - Kurla Road Andheri East, Mumbai
+									- 400059, Maharashtra</address>
+							</div>
+							<div class="col-4">
+
+								Google comes here
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</main>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+	<script src="js/vendor/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<script src="js/jquery-2.1.4.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+	<script>
+			+ function ($) {
+				'use strict';
+
+				// UPLOAD CLASS DEFINITION
+				// ======================
+
+				var dropZone = document.getElementById('drop-zone');
+				var uploadForm = document.getElementById('js-upload-form');
+
+				var startUpload = function (files) {
+
+				}
+
+				uploadForm.addEventListener('submit', function (e) {
+					var uploadFiles = document.getElementById('js-upload-files').files;
+					e.preventDefault()
+
+					startUpload(uploadFiles)
+				})
+
+				dropZone.ondrop = function (e) {
+					e.preventDefault();
+					this.className = 'upload-drop-zone';
+
+					startUpload(e.dataTransfer.files)
+				}
+
+				dropZone.ondragover = function () {
+					this.className = 'upload-drop-zone drop';
+					return false;
+				}
+
+				dropZone.ondragleave = function () {
+					this.className = 'upload-drop-zone';
+					return false;
+				}
+
+			}(jQuery);
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("files-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("input-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="date"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			date_input.datepicker({
+				format: 'dd/mm/yyyy',
+				container: container,
+				todayHighlight: true,
+				autoclose: true,
+			})
+		})
+	</script>
+</body>
+
+</html>

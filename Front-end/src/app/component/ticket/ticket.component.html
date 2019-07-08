@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+	<title>Ex-Employee Portal - Raise Ticket</title>
+
+	<!-- Bootstrap core CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<!-- <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" /> -->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+	<!-- Custom styles for this template -->
+	<!-- <link href="css/styles.css" rel="stylesheet" type="text/css" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="css/buttons.css"> -->
+</head>
+
+
+<body>
+	<nav class=" navbar navbar-dark bg-light flex-md-nowrap p-0 shadow logonavbar"> <a
+			style=" position:relative ; right: 250px " class="navbar-brand col-sm-1 col-md-2 mr-0"><img
+				src={{accoliteLogoPic}}></a>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"> <a style=" position:relative ; left: 250px " class="nav-link">Welcome
+					{{empName}}
+
+					<div class="dropdown">
+						<span class="dropbtn"><img src={{loginPic}} alt="Welcome"></span>
+						<div class="dropdown-content">
+							<a [hidden]="hide" style=" color:black " routerLink="/profile" routerLinkActive="active">Profile</a>
+							<a style=" color:black " (click)="logout()">Logout</a>
+						</div>
+					</div>
+
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<div *ngIf="checkhr!= '1'" class="container barside">
+		<div class="row">
+			<nav class="col-md-1 d-none d-md-block bg-light sidebar">
+				<div>
+					<ul class="nav flex-column">
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/document" routerLinkActive="active">
+								<img src={{documentPic}} alt=""><br>
+								Documents</a></li>
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/contacts" routerLinkActive="active">
+								<img src={{contactsPic}} alt=""><br>
+								Contacts</a></li>
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/ticket" routerLinkActive="active">
+								<img src={{raiseTicketPic}} alt=""><br>
+								Raise Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/listticket"
+								routerLinkActive="active">
+								<img src={{listTicketPic}} alt=""><br>
+								List Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+								<img src={{profilePic}} alt=""><br>
+								Profile</a>
+						</li>
+						<li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/login" routerLinkActive="active">
+								<img src={{logoutPic}} alt="" (click)="logout()"><br />Logout</a>
+						</li>
+
+
+
+					</ul>
+					<!--<div class="clearfix border-bottom"></div> -->
+
+				</div>
+			</nav>
+		
+
+
+
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-11 px-4 main-length">
+				<div id="sectionheader"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 *ngIf="hideButton == '0' && checkhr != '1'">Raise a Ticket</h1>
+					<h1 *ngIf="hideButton == '1'">Update a Ticket</h1>
+					<h1 *ngIf="checkhr == '1'">Upload Document</h1>
+
+					<div *ngIf="checkhr == '1'" class='readonlyticketid'>
+						TicketId: <span>{{readonlyTicketId}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '0' && checkhr != '1' ">
+						<button class="btn-top btn-addnew" (click)="send()">+ Raise a Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" checkhr == '1' ">
+						<button class="btn-top btn-addnew" (click)="uploaddocumenthr()">+ Upload Document</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '1' ">
+						<button class="btn-top btn-addnew" (click)="updateTicket($event)" multiple>+ Update
+							Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+				</div>
+				<div class="col-12">
+					<!-- <div class="inputfield"> -->
+					<div class="row">
+						<div class="col-3">
+
+
+							<!-- <legend>Ticket No.</legend> -->
+							<!-- <input type="text" placeholder="e.g. BA-002" > -->
+						</div>
+						<div class="col-3">
+							<!-- <legend>Raised On</legend> -->
+							<!-- <input class="date-calendar" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/> -->
+						</div>
+					</div>
+					<!-- </div> -->
+					<div class="inputfield">
+						<div class="row" style=" position:relative; bottom:20px; ">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12">
+										<legend>Summary</legend>
+									</div>
+									<div class="col-12" *ngIf="hideButton == '0' && checkhr !='1'">
+										<textarea name="" cols="" rows="" [(ngModel)]="ticket.summary"></textarea>
+									</div>
+									<div class="col-12" *ngIf="hideButton == '1' ">
+										<textarea name="" cols="" rows="" [(ngModel)]="ticket.summary">{{ticket.summary}}</textarea>
+									</div>
+									<div class="col-12" *ngIf="checkhr == '1' ">
+										<textarea name="" cols="" rows="" disabled [(ngModel)]="summary">{{summary}}</textarea>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-12">
+								<legend></legend>
+							</div>
+							<div class="col-12" id="uploadDoc">
+								<div [hidden]="hide" class="row" style=" position: relative; bottom: 40px;">
+									<div class="col-12">
+										<legend>Assign to ticket</legend>
+									</div>
+
+									<div class="col-3" style=" position: relative; bottom: 20px;">
+										<label>Department</label>
+										<select [(ngModel)]="selectedDepartment" (change)="changeDepartment()">
+											<option *ngFor="let type of departmentTypes" [ngValue]="type">
+												{{type.roleName}}
+											</option>
+										</select>
+									</div>
+									<div class="col-3">
+										<br>
+										<button class="btn-top btn-addnew" (click)="addAssignee()">+ Add
+											Assignee</button>
+									</div>
+
+									<!-- 
+									<div class="col-3">
+										<label>Assginee</label>
+										<select [(ngModel)]="selectedAssignee">
+											<option *ngFor="let assignee of assignees" [ngValue]="assignee">
+												{{assignee.firstName + ' ' + assignee.lastName}}
+											</option>
+										</select>
+									</div> -->
+
+									<div class="inputfield" style=" position: relative; bottom: 30px;">
+										<div class="row">
+											<div class="col-12">
+												<legend>Available Assignee</legend>
+											</div>
+											<div class="col-12" style="display:inline;">
+												<select multiple [(ngModel)]="selectedAssignee1" style="float:left;width:440px; height: 100px;">
+
+													<option *ngFor="let assignee of notSelectedSupport" [ngValue]="assignee.employeeId">
+														{{assignee.firstName + ' ' + assignee.lastName + ' [' + assignee.roleName + ']'}}
+
+													</option>
+												</select>
+
+
+												<div class="text-center" style=" padding-top:5px; float:left;">
+													<button class="btn-select" (click)="addSelectedSupport()">
+														<i class="fa fa-angle-double-right"></i>
+													</button>
+
+
+													<button class="btn-select" (click)="removeSelectedSupports()">
+														<i class="fa fa-angle-double-left"></i>
+													</button>
+												</div>
+
+
+												<select multiple [(ngModel)]="removeSelectSupport" name="category"
+													style="float:right;width:440px; height: 100px;">
+													<ng-container *ngFor="let support of supportSelected">
+														<option [value]="support.employeeId">{{
+														support.firstName + ' ' + support.lastName + '  [' + support.roleName + ']'
+												  }}</option>
+													</ng-container>
+												</select>
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+								</div>
+								<!-- <div class="row">
+									<table class="assigneeList">
+										<div *ngFor="let assignee of assigneeNamesList; let i = index"
+											class="list-group">
+											<tr>
+												<div class="list-group-item list-group-item-success">
+													<span id="deptBadge" class="badge">{{assignee.empDept}}</span>
+													{{assignee.empName}}
+												</div>
+											</tr>
+										</div>
+									</table>
+								</div> -->
+
+								<!-- Upload Finished -->
+								<div class="js-upload-finished">
+									<!-- <h3>Processed files</h3> -->
+									<div class="list-group">
+										<!-- <div class="list-group-item list-group-item-success"><span class="badge alert-success">Success</span>  <a href="#" class="files-close">X</a></div> -->
+										<!-- <div class="list-group-item list-group-item-danger"><span class="badge alert-warning">Uploading unsucessful</span>  <a href="#" class="files-close">X</a></div> -->
+									</div>
+
+									<div class="row" style=" position: relative; bottom: 80px;">
+										<div class="col-12">
+											<legend>Upload Documents</legend>
+										</div>
+										<div class="col-12" id="uploadDoc">
+											<h3>Select files from your computer</h3>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+									<!-- <select>
+				</div>
+				<div class="inputfield">
+					<div class="row">
+						<div class="col-12">
+							<legend>Upload Documents</legend>
+						</div>
+						<div class="col-12" id="uploadDoc">
+							<h3>Select files from your computer</h3>
+							<div class="row">
+								<div class="col-3">
+									<label>Document Name</label>
+									<input type="text" value="Resignation Letter" [(ngModel)]="document.documentName">
+								</div>
+								<div class="col-3">
+									 <label>Document Type</label> -->
+									<!-- <select>
+										<option>Vendor Account Doc</option>
+										<option>Hyderabad</option>
+										<option>Delhi</option>
+									</select> -->
+								</div>
+								<div class="clearfix"></div>
+								<div class="col-12">
+									<!-- <label>Comments/Remarks </label>
+									<textarea name="" cols="" rows=""></textarea> -->
+								</div>
+
+								<!-- Drop Zone -->
+
+								<div class="col-12">
+
+									<div style=" position: relative; bottom:110px; ">
+										<input id="draganddropfile" type="file" (change)="selectFile($event)" multiple />
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<!-- Upload Finished -->
+							<div class="col-12" style=" position:relative; bottom: 110px; ">
+								<h3>Processed files</h3>
+
+
+
+								<div *ngFor="let file of selectedFile ; let i = index">
+
+									<div class="row meraclass">
+										<div class="list-group-item list-group-item-success col-5"
+											style="margin-left: 1em; margin-right: 1em;">
+											<span class="badge alert-success">Success</span>
+											{{file.name}}
+										</div>
+
+										<div class="col-3">
+											<span style="margin-right: 1em">
+												<select [(ngModel)]="documentTypeId[i]">
+													<option *ngFor="let type of documentType" value="{{type.documentTypeId}}">
+														{{type.documentTypeName}}
+
+													</option>
+												</select>
+											</span>
+										</div>
+
+
+										<div class="col-3">
+											<span>
+												<input type="text" placeholder="document Name" value="Resignation Letter"
+													[(ngModel)]="documentName[i]">
+											</span>
+										</div>
+										<!-- <a (click)="removeFile(i)" class="files-close">X</a> -->
+										<span class=" close"><button class="cancel-btn" (click)="removeFile(i)">&times;</button></span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+				<div class="col-12 padding-bottom-50" style=" position:relative; bottom:110px; ">
+
+
+					<div  class="btn-toolbar mb-2 mb-md-0">
+						<button class="btn-top btn-addnew" routerLink="/listticket" routerLinkActive="active">Cancel</button>
+					</div>
+					<!-- <div *ngIf=" hideButton == '1'" class="btn-toolbar mb-2 mb-md-0">
+						<button class="btn-top btn-addnew" routerLink="/listticket" routerLinkActive="active">Cancel</button>
+					</div> -->
+
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '1'" style="position: relative; left:800px; bottom: 50px;">
+						<button class="btn-top btn-addnew" (click)="updateTicket($event)" multiple>+ Update
+							Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" checkhr == '1' " style=" position:relative;left:800px; bottom:45px">
+						<button class="btn-top btn-addnew" (click)="uploaddocumenthr(ticket.TicketId)">+ Upload Document</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+					<div *ngIf=" hideButton == '0'" class="btn-toolbar mb-2 mb-md-0"
+						style=" position:relative ; left: 420px; bottom: 48px; ">
+						<button *ngIf="checkhr !='1'" class="btn-top btn-addnew" (click)="refresh()">Reset</button>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '0' && checkhr !='1' "
+						style=" position:relative ; left: 800px; bottom: 100px; float: left; ">
+						<button class="btn-top btn-addnew" style=" position:relative ;  " (click)="send()">+ Raise a Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<div *ngIf="checkhr === '1'" class="container barsidehr">
+		<div class="row">
+			<nav class="col-md-1 d-none d-md-block bg-light sidebar">
+				<div>
+					<ul class="nav flex-column">
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/document" routerLinkActive="active">
+								<img src="assets/img/my-document.png" alt=""><br>
+								Documents</a></li> -->
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/contacts" routerLinkActive="active">
+								<img src="assets/img/contact.png" alt=""><br>
+								Contacts</a></li> -->
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/ticket" routerLinkActive="active">
+								<img src="assets/img/riseticket.png" alt=""><br>
+								Raise Ticket</a> -->
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						<!-- </li> -->
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/listticket"
+								routerLinkActive="active">
+								<img src="assets/img/listticket.png" alt=""><br>
+								List Ticket</a> -->
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						<!-- </li> -->
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+								<img src="assets/img/my-profile.png" alt=""><br>
+								Profile</a>
+						</li> -->
+						<!-- <li [hidden]="hide" class="nav-item"> <a class="nav-link" routerLink="/login" routerLinkActive="active">
+								<img src="assets/img/logout.png" alt="" (click)="logout()"><br />Logout</a>
+						</li> -->
+
+
+
+					</ul>
+					<!--<div class="clearfix border-bottom"></div> -->
+
+				</div>
+			</nav>
+		
+
+
+
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-11 px-4 main-length">
+				<div id="sectionheader"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 *ngIf="hideButton == '0' && checkhr != '1'">Raise a Ticket</h1>
+					<h1 *ngIf="hideButton == '1'">Update a Ticket</h1>
+					<h1 *ngIf="checkhr == '1'">Upload Document</h1>
+
+					<div *ngIf="checkhr == '1'" class='readonlyticketid'>
+						TicketId: <span>{{readonlyTicketId}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '0' && checkhr != '1' ">
+						<button class="btn-top btn-addnew" (click)="send()">+ Raise a Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" checkhr == '1' ">
+						<button class="btn-top btn-addnew" (click)="uploaddocumenthr()">+ Upload Document</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '1' ">
+						<button class="btn-top btn-addnew" (click)="updateTicket($event)" multiple>+ Update
+							Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+				</div>
+				<div class="col-12">
+					<!-- <div class="inputfield"> -->
+					<div class="row">
+						<div class="col-3">
+
+
+							<!-- <legend>Ticket No.</legend> -->
+							<!-- <input type="text" placeholder="e.g. BA-002" > -->
+						</div>
+						<div class="col-3">
+							<!-- <legend>Raised On</legend> -->
+							<!-- <input class="date-calendar" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/> -->
+						</div>
+					</div>
+					<!-- </div> -->
+					<div class="inputfield">
+						<div class="row" style=" position:relative; bottom:20px; ">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12">
+										<legend>Summary</legend>
+									</div>
+									<div class="col-12" *ngIf="hideButton == '0' && checkhr !='1'">
+										<textarea name="" cols="" rows="" [(ngModel)]="ticket.summary"></textarea>
+									</div>
+									<div class="col-12" *ngIf="hideButton == '1' ">
+										<textarea name="" cols="" rows="" [(ngModel)]="ticket.summary">{{ticket.summary}}</textarea>
+									</div>
+									<div class="col-12" *ngIf="checkhr == '1' ">
+										<textarea name="" cols="" rows="" disabled [(ngModel)]="summary">{{summary}}</textarea>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-12">
+								<legend></legend>
+							</div>
+							<div class="col-12" id="uploadDoc">
+								<!-- <div [hidden]="hide" class="row" style=" position: relative; bottom: 40px;">
+									<div class="col-12">
+										<legend>Assign to ticket</legend>
+									</div>
+
+									<div class="col-3" style=" position: relative; bottom: 20px;">
+										<label>Department</label>
+										<select [(ngModel)]="selectedDepartment" (change)="changeDepartment()">
+											<option *ngFor="let type of departmentTypes" [ngValue]="type">
+												{{type.roleName}}
+											</option>
+										</select>
+									</div>
+									<div class="col-3">
+										<br>
+										<button class="btn-top btn-addnew" (click)="addAssignee()">+ Add
+											Assignee</button>
+									</div> -->
+
+									<!-- 
+									<div class="col-3">
+										<label>Assginee</label>
+										<select [(ngModel)]="selectedAssignee">
+											<option *ngFor="let assignee of assignees" [ngValue]="assignee">
+												{{assignee.firstName + ' ' + assignee.lastName}}
+											</option>
+										</select>
+									</div> -->
+<!-- 
+									<div class="inputfield" style=" position: relative; bottom: 30px;">
+										<div class="row">
+											<div class="col-12">
+												<legend>Available Assignee</legend>
+											</div>
+											<div class="col-12" style="display:inline;">
+												<select multiple [(ngModel)]="selectedAssignee1" style="float:left;width:440px; height: 100px;">
+
+													<option *ngFor="let assignee of notSelectedSupport" [ngValue]="assignee.employeeId">
+														{{assignee.firstName + ' ' + assignee.lastName + ' [' + assignee.roleName + ']'}}
+
+													</option>
+												</select>
+
+
+												<div class="text-center" style=" padding-top:5px; float:left;">
+													<button class="btn-select" (click)="addSelectedSupport()">
+														<i class="fa fa-angle-double-right"></i>
+													</button>
+
+
+													<button class="btn-select" (click)="removeSelectedSupports()">
+														<i class="fa fa-angle-double-left"></i>
+													</button>
+												</div>
+
+
+												<select multiple [(ngModel)]="removeSelectSupport" name="category"
+													style="float:right;width:440px; height: 100px;">
+													<ng-container *ngFor="let support of supportSelected">
+														<option [value]="support.employeeId">{{
+														support.firstName + ' ' + support.lastName + '  [' + support.roleName + ']'
+												  }}</option>
+													</ng-container>
+												</select>
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+								</div> -->
+								<!-- <div class="row">
+									<table class="assigneeList">
+										<div *ngFor="let assignee of assigneeNamesList; let i = index"
+											class="list-group">
+											<tr>
+												<div class="list-group-item list-group-item-success">
+													<span id="deptBadge" class="badge">{{assignee.empDept}}</span>
+													{{assignee.empName}}
+												</div>
+											</tr>
+										</div>
+									</table>
+								</div> -->
+
+								<!-- Upload Finished -->
+								<div class="js-upload-finished">
+									<!-- <h3>Processed files</h3> -->
+									<div class="list-group">
+										<!-- <div class="list-group-item list-group-item-success"><span class="badge alert-success">Success</span>  <a href="#" class="files-close">X</a></div> -->
+										<!-- <div class="list-group-item list-group-item-danger"><span class="badge alert-warning">Uploading unsucessful</span>  <a href="#" class="files-close">X</a></div> -->
+									</div>
+
+									<div class="row" style=" position: relative; bottom: 80px;">
+										<div class="col-12">
+											<legend>Upload Documents</legend>
+										</div>
+										<div class="col-12" id="uploadDoc">
+											<h3>Select files from your computer</h3>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+									<!-- <select>
+				</div>
+				<div class="inputfield">
+					<div class="row">
+						<div class="col-12">
+							<legend>Upload Documents</legend>
+						</div>
+						<div class="col-12" id="uploadDoc">
+							<h3>Select files from your computer</h3>
+							<div class="row">
+								<div class="col-3">
+									<label>Document Name</label>
+									<input type="text" value="Resignation Letter" [(ngModel)]="document.documentName">
+								</div>
+								<div class="col-3">
+									 <label>Document Type</label> -->
+									<!-- <select>
+										<option>Vendor Account Doc</option>
+										<option>Hyderabad</option>
+										<option>Delhi</option>
+									</select> -->
+								</div>
+								<div class="clearfix"></div>
+								<div class="col-12">
+									<!-- <label>Comments/Remarks </label>
+									<textarea name="" cols="" rows=""></textarea> -->
+								</div>
+
+								<!-- Drop Zone -->
+
+								<div class="col-12">
+
+									<div style=" position: relative; bottom:110px; ">
+										<input id="draganddropfile" type="file" (change)="selectFile($event)" multiple />
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<!-- Upload Finished -->
+							<div class="col-12" style=" position:relative; bottom: 110px; ">
+								<h3>Processed files</h3>
+
+
+
+								<div *ngFor="let file of selectedFile ; let i = index">
+
+									<div class="row meraclass">
+										<div class="list-group-item list-group-item-success col-5"
+											style="margin-left: 1em; margin-right: 1em;">
+											<span class="badge alert-success">Success</span>
+											{{file.name}}
+										</div>
+
+										<div class="col-3">
+											<span style="margin-right: 1em">
+												<select [(ngModel)]="documentTypeId[i]">
+													<option *ngFor="let type of documentType" value="{{type.documentTypeId}}">
+														{{type.documentTypeName}}
+
+													</option>
+												</select>
+											</span>
+										</div>
+
+
+										<div class="col-3">
+											<span>
+												<input type="text" placeholder="document Name" value="Resignation Letter"
+													[(ngModel)]="documentName[i]">
+											</span>
+										</div>
+										<!-- <a (click)="removeFile(i)" class="files-close">X</a> -->
+										<span class=" close"><button class="cancel-btn" (click)="removeFile(i)">&times;</button></span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+				<div class="col-12 padding-bottom-50" style=" position:relative; bottom:110px; ">
+
+
+					<div  class="btn-toolbar mb-2 mb-md-0">
+						<button class="btn-top btn-addnew" routerLink="/listticket" routerLinkActive="active">Cancel</button>
+					</div>
+					<!-- <div *ngIf=" hideButton == '1'" class="btn-toolbar mb-2 mb-md-0">
+						<button class="btn-top btn-addnew" routerLink="/listticket" routerLinkActive="active">Cancel</button>
+					</div> -->
+
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '1'">
+						<button class="btn-top btn-addnew" (click)="updateTicket($event)" multiple>+ Update
+							Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" checkhr == '1' " style=" position:relative;left:800px; bottom:45px">
+						<button class="btn-top btn-addnew" (click)="uploaddocumenthr(ticket.TicketId)">+ Upload Document</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+					<div *ngIf=" hideButton == '0'" class="btn-toolbar mb-2 mb-md-0"
+						style=" position:relative ; left: 420px; bottom: 48px; ">
+						<button *ngIf="checkhr !='1'" class="btn-top btn-addnew" (click)="refresh()">Reset</button>
+					</div>
+					<div class="btn-toolbar mb-2 mb-md-0" *ngIf=" hideButton == '0' && checkhr !='1' "
+						style=" position:relative ; left: 800px; bottom: 100px; float: left; ">
+						<button class="btn-top btn-addnew" style=" position:relative ;  " (click)="send()">+ Raise a Ticket</button>
+						<span class="txt-red-sml">{{message3}}</span>
+					</div>
+
+				</div>
+			</main>
+		</div>
+	</div>
+		
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+	<script src="js/vendor/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<script src="js/jquery-2.1.4.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+	<script>
+			+ function ($) {
+				'use strict';
+
+				// UPLOAD CLASS DEFINITION
+				// ======================
+
+				var dropZone = document.getElementById('drop-zone');
+				var uploadForm = document.getElementById('js-upload-form');
+
+				var startUpload = function (files) {
+
+				}
+
+				uploadForm.addEventListener('submit', function (e) {
+					var uploadFiles = document.getElementById('js-upload-files').files;
+					e.preventDefault()
+
+					startUpload(uploadFiles)
+				})
+
+				dropZone.ondrop = function (e) {
+					e.preventDefault();
+					this.className = 'upload-drop-zone';
+
+					startUpload(e.dataTransfer.files)
+				}
+
+				dropZone.ondragover = function () {
+					this.className = 'upload-drop-zone drop';
+					return false;
+				}
+
+				dropZone.ondragleave = function () {
+					this.className = 'upload-drop-zone';
+					return false;
+				}
+
+			}(jQuery);
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("files-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("input-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="date"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			date_input.datepicker({
+				format: 'dd/mm/yyyy',
+				container: container,
+				todayHighlight: true,
+				autoclose: true,
+			})
+		})
+	</script>
+</body>
+
+</html>

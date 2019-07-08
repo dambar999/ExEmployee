@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+	<title>Ex-Employee Portal - My Tickets</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<!-- Custom styles for this template -->
+	<!-- <link href="css/styles.css" rel="stylesheet" type="text/css" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="css/buttons.css"> -->
+</head>
+
+<body>
+			  
+			 
+		<nav class=" navbar navbar-dark bg-light flex-md-nowrap p-0 shadow logonavbar"> <a style=" position:relative ; right: 250px "
+			class="navbar-brand col-sm-1 col-md-2 mr-0"><img src={{accoliteLogoPic}}></a>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"> <a style=" position:relative ; left: 250px " class="nav-link">Welcome {{empName}}
+				
+					<div class="dropdown">
+							<span class="dropbtn" ><img src={{loginPic}} alt="Welcome"></span>
+							<div class="dropdown-content">
+								<a *ngIf="checkhr != '1'" style=" color:black ;cursor: pointer; " routerLink="/profile" routerLinkActive="active">Profile</a>
+								<a  style=" color:black ;  cursor: pointer;" (click)="logout()">Logout</a>
+							</div>
+						</div>
+	
+			</a> 
+				
+				</li>
+		</ul>
+		
+	</nav>
+	<link rel="icon" href="favicon.ico">
+
+
+
+	<div class="container barside">
+		<div class="row">
+			<nav class="col-md-1 d-none d-md-block bg-light sidebar">
+				<div>
+					<ul class="nav flex-column">
+						<li class="nav-item"> <a class="nav-link" routerLink="/document" routerLinkActive="active"> <img
+									src={{documentPic}} alt=""><br>
+								Documents</a></li>
+						<li [hidden] = "hideContacts" class="nav-item"> <a class="nav-link" routerLink="/contacts" routerLinkActive="active"> <img
+									src={{contactsPic}} alt=""><br>
+								Contacts</a></li>
+						<li [hidden]="hideTicket" class="nav-item"> <a class="nav-link" routerLink="/ticket" routerLinkActive="active"> <img
+									src={{raiseTicketPic}} alt=""><br>
+								Raise Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+						<li class="nav-item"> <a class="nav-link" routerLink="/listticket" routerLinkActive="active"> <img
+									src={{listTicketPic}} alt=""><br>
+								List Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+
+						<li *ngIf="checkhr != '1'" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <img
+							src={{profilePic}} alt=""><br>
+						Profile</a>
+				</li>
+				<li class="nav-item"> <a class="nav-link" routerLink="/login" routerLinkActive="active"> <img
+							src={{logoutPic}} alt="" (click)="logout()"><br />Logout</a>
+				</li>
+
+					</ul>
+					<!--<div class="clearfix border-bottom"></div>-->
+					<!-- <ul class="nav flex-column">
+						<li [hidden] = "hideProfile" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <img
+									src="assets/img/my-profile.png" alt=""><br>
+								Profile</a></li>
+						<li class="nav-item">
+							<a class="nav-link"><img src="assets/img/logout.png" alt="" (click)="logout()"><br />Logout</a>
+						</li>
+					</ul> -->
+
+				</div>
+			</nav>
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-11 px-4">
+				<div id="sectionheader"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1>My Tickets</h1>
+				
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<!--<button class="btn-top btn-addnew">+ Raise a Ticket</button>-->
+					</div>
+				</div>
+				
+				<div style=" float: left; " class="toggle_bt">
+					<div class="onoffswitch">
+						<input type="checkbox" checked="checked" class="onoffswitch-checkbox" id="onoffswitch3" (click)="onoff()">
+						<label for="onoffswitch3" class="onoffswitch-label"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label>
+					</div>
+					
+				</div>
+	
+				<div class="col-lg-12" style="padding:0px;" id="list-bu">
+
+				<!-- <div class="toggle_bt">
+						<div class="onoffswitch">
+							 <input type="checkbox" checked="checked" class="onoffswitch-checkbox" id="onoffswitch3"> 
+							 <label for="onoffswitch3" class="onoffswitch-label"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label>
+						</div>
+					</div> -->
+
+
+					<div style=" float:right; ">			
+						<pagination-controls (pageChange)="p = $event"  class = "pagination"></pagination-controls>
+					</div>
+					<table style=" width:100%"  class="table table-striped" cellspacing="1" >
+						<thead>
+							<tr>
+								<th style=" width:16%" >Ticket Id </th>
+								<th style=" width:16%">Creator</th> 
+								<th style=" width:16%">Creation Date</th>
+								<th style=" width:16%">Summary</th>
+								<th style=" width:16%">Updated On</th>
+								<th style=" width:16%">Status</th>
+								<!-- <th>&nbsp;</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<div  *ngIf="nothingToShow">
+								<span class="no-record-span" > NO TICKET</span>
+							</div>
+							<app-spinner *ngIf="showSpinner" style=" position:relative; left:400px; " ></app-spinner>
+							<tr *ngFor="let ticket of tickets | paginate: { itemsPerPage: 5, currentPage: p }">
+								<td>{{ticket.ticketId}}</td>
+								<td>{{ticket.firstName + ' ' + ticket.lastName + ' [' + ticket.creatorId + ']'}} </td>
+								<td>{{ticket.creationDate | date}}</td>
+								<td>
+
+									<a class="tooltiptext" data-toggle="tooltip" (click)="ngxSmartModalService.getModal('myModal1').open() ; getSummary(ticket.ticketId) "
+										title="{{ticket.summary}}">{{ticket.summary | slice:0:10}}.. </a>
+										<div style=" position:relative; z-index:1; "> 
+												<ngx-smart-modal #myModal identifier="myModal1">
+														<h1 >Summary</h1>
+														<br>
+														<!-- <ul *ngFor="let name of assigneeName"> -->
+														<!-- <li style=" float:left; "> {{name.firstName +' ' +name.lastName +' [' +name.roleName +']'  }}</li> -->
+														<!-- <li style=" list-style-type: none; "><br></li>  -->
+														<!-- </ul> -->
+													<span> 	{{summary}} </span>
+														
+														<!-- <button (click)="myModal.close()">Close</button> -->
+														</ngx-smart-modal>
+												</div>
+									<!-- <div class="tooltip">Hover over me
+													<span class="tooltiptext">kjhgfd</span>
+											</div> -->
+
+									<!-- <script>
+													$(document).ready(function(){
+														$('[data-toggle="tooltip"]').tooltip();   
+													});
+													</script> -->
+								</td>
+								<td>{{ticket.lastUpdated | date}}</td>
+								<!-- <td>{{statusList[ticket.status-1]}}</td> -->
+								<td>{{statusList[ticket.status - 1]}}</td>
+								<td>
+									<!-- <select>
+										<option (onselect)="close(ticket)">Close</option>
+										<option (onselect)="reopen(ticket)">ReOpen</option>
+									</select> -->
+
+									<!-- <select [(ngModel)]="tickets[i].status" (ngModelChange)="modo(i,ticket)" id="selectid" class="form-control-mb-12">
+											<option value="2">CLOSE</option>
+											<option value="3">RE-OPEN</option>
+									 </select> -->
+
+									<div class="dropdown">
+										<button class="btn-list-drop" type="button" data-toggle="dropdown"><img
+												src={{listDropDownPic}}></button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li *ngIf="statusList[ticket.status - 1] == 'OPEN' || statusList[ticket.status - 1] == 'REOPENED'" (click)="modo(2, ticket)"><a>Close Ticket</a></li>
+											<li *ngIf="statusList[ticket.status - 1] == 'CLOSED'  " (click)="modo(3, ticket)"><a>Reopen Ticket</a></li>
+											<li (click)="updateTicket(ticket.ticketId)"><a>Update ticket</a></li>
+											<li (click)="discuss.openDiscuss(ticket.ticketId)"><a data-toggle="modal" data-target="#ticket" data-backdrop="false">Discuss</a></li>
+											<li (click)="ngxSmartModalService.getModal('myModal2').open() ; getAssigne(ticket)"><a>Assignee Name</a></li>											
+											<li (click)="uploadDocumentHr(ticket.ticketId)" *ngIf="checkhr == 1" ><a>Upload Document</a> </li>
+											<!-- <li (click)="getAssigne(ticket)"><a>ListAssigne</a>
+											
+												<div class="dropdown-content">
+													<div *ngFor="let name of assigneeName">
+														<li> {{name}}</li>
+													</div>
+												</div>
+											
+											</li> -->
+										</ul>
+									</div>
+
+
+									
+									
+
+									
+
+									<div style=" position:relative; z-index:1; "> 
+											<ngx-smart-modal #myModal identifier="myModal2"  [closable]="false">
+													<h1 style=" position:relative; top:10px; right:200px; ">List of Assignees</h1>
+													<br>
+													<ul *ngFor="let name of assigneeName">
+													<li style=" float:left; "> {{name.firstName +' ' +name.lastName +' [' +name.roleName +']'  }}</li>
+													<li style=" list-style-type: none; "><br></li> 
+													</ul>
+													
+													<button (click)="myModal.close()">Close</button>
+													</ngx-smart-modal>
+											</div>
+											<!-- <button type="button" (click)="close(ticket)">Close</button></td>
+						<td>	<button type="button" (click)="reopen(ticket)">ReOpen</button> -->
+									<!-- <div class="dropdown">
+									<button class="btn-list-drop" type="button" data-toggle="dropdown"><img src="assets/img/list-drop.png"></button>
+									<ul class="dropdown-menu dropdown-menu-right">
+										
+									<li><a href="#">Reopen Ticket</a></li>
+									<li><a href="#">Cancel Ticket</a></li>
+									<li><a href="#">Close Ticket</a></li>
+									<li><a href="#">Discuss</a></li>
+									<li><a href="#">View Documents</a></li>
+									</ul>
+								</div> -->
+								</td>
+
+								<!-- <td>
+							<div class="dropdown">
+							  <button class="btn-list-drop" type="button" data-toggle="dropdown"><img src="assets/img/list-drop.png"></button>
+							  <ul class="dropdown-menu dropdown-menu-right">
+									
+								<li><a href="#">Reopen Ticket</a></li>
+								<li><a href="#">Cancel Ticket</a></li>
+								<li><a href="#">Close Ticket</a></li>
+								<li><a href="#">Discuss</a></li>
+								<li><a href="#">View Documents</a></li>
+							  </ul>
+							</div>
+						</td> -->
+							</tr>
+
+							<!-- <tr class="inactive">
+						<td>
+						<a href="#">Nil-Ticket2</a>
+						</td>
+						<td>Contrary to popular belief, Lorem...</td>
+						<td>10/06/2016</td>
+						<td>Lorem ipsum dolor sit amet	consec...</td>
+						<td>Pushpak</td>
+						<td>
+							Sed ut perspiciatis unde
+						</td>
+						<td>
+							<div class="dropdown">
+							  <button class="btn-list-drop" type="button" data-toggle="dropdown"><img src="assets/img/list-drop.png"></button>
+							  <ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#">Reopen Ticket</a></li>
+								<li><a href="#">Cancel Ticket</a></li>
+								<li><a href="#">Close Ticket</a></li>
+								<li><a href="#">Discuss</a></li>
+								<li><a href="#">View Documents</a></li>
+							  </ul>
+							</div>
+						</td>
+					  </tr>
+					  
+					  <tr>
+						<td>
+						<a href="#">Nil-Ticket3</a>
+						</td>
+						<td>Contrary to popular belief, Lorem...</td>
+						<td>10/06/2016</td>
+						<td>Lorem ipsum dolor sit amet	consec...</td>
+						<td>Pushpak</td>
+						<td>
+							Sed ut perspiciatis unde
+						</td>
+						<td>
+							<div class="dropdown">
+							  <button class="btn-list-drop" type="button" data-toggle="dropdown"><img src="assets/img/list-drop.png"></button>
+							  <ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#">Reopen Ticket</a></li>
+								<li><a href="#">Cancel Ticket</a></li>
+								<li><a href="#">Close Ticket</a></li>
+								<li><a href="#">Discuss</a></li>
+								<li><a href="#">View Documents</a></li>
+							  </ul>
+							</div>
+						</td>
+					  </tr> -->
+						</tbody>
+						
+							
+					</table>
+					
+						
+
+				</div>
+			</main>
+		</div>
+	</div>
+	
+	
+	
+		<app-discuss #discuss></app-discuss>
+	
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+	
+</body>
+
+</html>

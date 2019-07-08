@@ -1,0 +1,215 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+    /* margin: 0px; */
+    /* padding: 0px; */
+    overflow-x: hidden; 
+    background-image: linear-gradient(to right, #0cabfe, #72cfff);
+   
+}
+
+.logonavbar{
+    position: fixed !important;
+    width: 100% !important;
+    top: 0 !important;
+    height: 35px !important;
+
+}
+
+
+
+.hh{
+        margin-bottom: 50px !important;
+}
+
+.footer {
+   
+    background-color : #232F3E !important;
+    width: 100% !important;
+    height: 250px !important;
+    text-align: center;
+    font-size: 15px !important;
+    margin-top: 2px;
+    position: relative;
+    bottom: 110px;
+
+}
+
+
+.footerfacebook{
+    color: #DDD;
+    position: relative;
+    top : 50px;
+    right: 8px;
+}
+.connectfooteraddress {
+    font-weight: 700;
+    color: white;
+
+}
+
+ /* .connectfooter{
+    font-weight: 700;
+    color: white;
+    position: relative;
+    left: 700px;
+}  */
+
+.nav_a{
+    color: #DDD !important;    
+}
+ .socialmediafooter{
+   float: right;
+   /* padding: 50px; */
+   position: relative;
+   right: 100px;
+   top: 25px;
+   bottom: 6px !important;
+} 
+
+ .bngaddress{
+    padding: 50px;
+    color: #DDD;
+    position: relative;
+    padding: 50px;
+    right: 50px;
+
+} 
+
+.dlhaddress{
+    padding: 50px;
+    color:#DDD;
+    position: relative;
+    bottom: 375px;
+}
+
+.chnaddress{
+    padding: 50px;
+    color:#DDD;
+    position: relative;
+    /* bottom : 395px; */
+    text-align: center;
+    width: 500px;
+    left: 400px;
+    padding: 70px;
+    bottom: 50px;
+}
+
+.hydaddress{
+    padding: 50px;
+    color: #DDD;
+    position: relative;
+    right: 400px;
+    padding: 70px;
+    height: 100%;
+    float: right;
+    position: relative;
+    right: 600px;
+     /* width: 33% ; */
+    bottom: 50px;
+}
+
+.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.btn-social>:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    line-height: 34px;
+    font-size: 1.6em;
+    text-align: center;
+    border-right:1px solid rgba(0,0,0,0.2)
+}
+
+.login-btn{
+    line-height: 35px !important; 
+}
+
+.btn-google {
+    color: #fff;
+    background-color: #dd4b39;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn-google:focus, .btn-google.focus {
+    color: #fff;
+    background-color: #c23321;
+    border-color: rgba(0,0,0,0.2)
+}
+
+.btn {
+    font-size: 18px !important;
+}
+
+/* Style all font awesome icons */
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+  
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
+  
+  /* Set a specific color for each brand */
+  
+  /* Facebook */
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  /* Twitter */
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+
+  ::placeholder {
+    color: blue;
+    font-size: 25px;
+  }
+
+  .main-tag{
+    
+    position: relative;
+    top:10px;
+    /* margin-top: 200px !important; */
+    /* margin-top: 0px; */
+  }
+
+    .body-tag{
+      /* height: 100 !important; */
+      /* background-color: #c23321; */
+      margin-bottom: -110px;
+    }
+
+
+  .button-div{
+      bottom:50px;
+  }
+/* 
+  .back-ground{
+      background-color: #55ACEE !important;
+  } */
+
+  input:focus {
+    outline:none;
+}
+
+  

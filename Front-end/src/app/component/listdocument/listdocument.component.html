@@ -1,0 +1,359 @@
+	<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+	<title>Ex-Employee Portal - My Documents</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<!-- Custom styles for this template -->
+	<!-- <link href="css/styles.css" rel="stylesheet" type="text/css" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="css/buttons.css"> -->
+</head>
+
+<body>
+	<!-- All Modals -->
+	<nav class=" navbar navbar-dark bg-light flex-md-nowrap p-0 shadow logonavbar"> <a style=" position:relative ; right: 250px "
+			class="navbar-brand col-sm-1 col-md-2 mr-0"><img src={{accoliteLogoPic}}></a>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"> <a style=" position:relative ; left: 250px " class="nav-link">Welcome {{empName}}
+				
+					<div class="dropdown">
+							<span class="dropbtn" ><img src={{loginPic}} alt="Welcome"></span>
+							<div class="dropdown-content">
+								<a *ngIf="checkhr != '1'" style=" color:black ;cursor: pointer; " routerLink="/profile" routerLinkActive="active">Profile</a>
+								<a  style=" color:black ;  cursor: pointer;" (click)="logout()">Logout</a>
+							</div>
+						</div>
+	
+			</a> 
+				
+				</li>
+		</ul>
+		
+	</nav>
+	<link rel="icon" href="favicon.ico">
+	<!-- <nav class="container navbar navbar-dark bg-light flex-md-nowrap p-0 shadow"> 
+				<a class="navbar-brand col-sm-1 col-md-2 mr-0" href="#"><img src="assets/img/acco-logo.png"></a>
+				<ul class="navbar-nav px-3">
+					<li class="nav-item text-nowrap"> <a class="nav-link" href="#">Welcome Niladri<img src="assets/img/login.svg" alt="Welcome"></a> </li>
+				</ul>
+			</nav> -->
+	<div class="container barside">
+		<div class="row">
+			<nav class="col-md-1 d-none d-md-block bg-light sidebar">
+				<div>
+					<ul class="nav flex-column">
+						<li class="nav-item"> <a class="nav-link" routerLink="/document" routerLinkActive="active"> <img
+									src={{documentPic}} alt=""><br>
+								Documents</a></li>
+						<li [hidden]="hideContact" class="nav-item"> <a class="nav-link" routerLink="/contacts"
+								routerLinkActive="active"> <img src={{contactsPic}} alt=""><br>
+								Contacts</a></li>
+						<li [hidden]="hideTicket" class="nav-item"> <a class="nav-link" routerLink="/ticket"
+								routerLinkActive="active"> <img src={{raiseTicketPic}} alt=""><br>
+								Raise Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+						<li class="nav-item"> <a class="nav-link" routerLink="/listticket" routerLinkActive="active">
+								<img src={{listTicketPic}} alt=""><br>
+								List Ticket</a>
+							<!-- <div id="helplinks" class="collapse navxpnd"> <a href="raise-ticket.html">Raise a Ticket</a> <a href="list-ticket.html">List Tickets</a> </div> -->
+						</li>
+
+						<li *ngIf="checkhr != '1'" class="nav-item"> <a class="nav-link" routerLink="/profile" routerLinkActive="active"> <img
+							src={{profilePic}} alt=""><br>
+						Profile</a>
+				</li>
+				<li class="nav-item"> <a class="nav-link" routerLink="/login" routerLinkActive="active"> <img
+							src={{logoutPic}} alt="" (click)="logout()"><br />Logout</a>
+				</li>
+
+					</ul>
+					<!--<div class="clearfix border-bottom"></div> -->
+					
+
+				</div>
+			</nav>
+			<main role="main" class="col-md-12 ml-sm-auto col-lg-11 px-4">
+				<div id="sectionheader"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1>My Documents</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<!-- <button class="btn-top btn-addnew">+ Raise a Ticket</button> -->
+						
+					</div>
+					
+				</div>
+				<div class="col-12">
+					<div class="col-lg-12" id="list-ticket">
+					<div *ngIf="checkhr == '1'">
+					<!-- <div [hidden]="!checkhr"> -->
+							<table  style="width: 100%" class="table table-striped" cellspacing="10">
+							<thead>
+								<tr>
+									<th style="width: 16%">Discuss</th>
+									<th style="width: 16%">Ticket Number</th>
+									<th style="width: 16%">Document Type</th>
+									<th style="width: 16%">Document Name</th>
+									<th style="width: 16%">Uploaded by</th>
+									<th style="width: 16%">Uploaded on</th>
+								</tr>
+							</thead>
+							<app-spinner *ngIf="showSpinner" style=" position:relative; left:400px;"> </app-spinner>
+							<tbody *ngFor="let a of doc | paginate: { itemsPerPage: 5, currentPage: p ,id: 'first'};  let i = index" >
+									<div *ngIf="nothingToShow"> 
+											<span class="no-record-span" >NO DOCUMENT </span>
+										</div>
+								<!-- <tr *ngFor="let a of d " > -->
+									<td>
+										<button class="discuss-btn" data-toggle="modal" data-target="#ticket" data-backdrop="false"
+											(click)="discuss.openDiscuss(a.ticketId)">Discuss</button>
+									</td>
+									<td><a (click)="download(a.id)">{{a.ticketId}}</a></td>
+									<td>{{a.documentTypeName}}</td>
+									<td>
+										<span class="tooltiptext" data-toggle="tooltip"
+										title="{{a.documentName}}">{{a.documentName | slice:0:10}}..</span>
+									</td>
+									<td>{{a.employeeName}}</td>
+									<td>{{a.uploadDate}}</td>
+									<td>
+										<a href="/ex-employee-portal/document/get/file?id={{ a.id }}" target="_blank"
+											download><i class="fa fa-download"></i></a>
+									</td>
+								<!-- </tr> -->
+							</tbody>
+							
+						</table>
+						<div style=" float:right;">			
+								<pagination-controls  (pageChange)="p = $event"  class = "pagination" id='first'></pagination-controls>
+							</div>
+						<br />
+					</div>
+
+						
+
+						<!-- <div style=" float:right;">			
+								<pagination-controls (pageChange)="p = $event"  class = "pagination"></pagination-controls>
+						</div> -->
+						<div *ngIf="checkhr != '1'">
+							
+							<table  style="width: 100%" class="table table-striped" cellspacing="10">
+							<thead>
+								<tr>
+									<th style="width: 16%">Discuss</th>
+									<th style="width: 16%">Ticket Number</th>
+									<th style="width: 16%">Document Type</th>
+									<th style="width: 16%">Document Name</th>
+									<th style="width: 16%">Uploaded by</th>
+									<th style="width: 16%">Uploaded on</th>
+								</tr>
+							</thead>
+							<app-spinner *ngIf="showSpinner" style=" position:relative; left:400px;"> </app-spinner>
+							<tbody>
+								<div *ngIf="nothingToShow"> 
+									<span class="no-record-span" >NO DOCUMENT </span>
+								</div>
+								<tr *ngFor="let d of doc | paginate: { itemsPerPage: 6, currentPage: p }">
+									<td>
+										<button class="discuss-btn" data-toggle="modal" data-target="#ticket" data-backdrop="false"
+											(click)="discuss.openDiscuss(d.ticketId)">Discuss</button>
+									</td>
+									<td><a (click)="download(d.id)">{{d.ticketId}}</a></td>
+
+									<td>{{d.documentTypeName}}</td>
+									<td>
+										<span class="tooltiptext" data-toggle="tooltip"
+										title="{{d.documentName}}">{{d.documentName | slice:0:10}}..</span>
+									</td>
+
+									<td>{{d.employeeName}}</td>
+									<td>{{d.uploadDate | date}}</td>
+									<td>
+										<a href="/ex-employee-portal/document/get/file?id={{ d.id }}" target="_blank"
+											download><i class="fa fa-download"></i></a>
+									</td>
+								</tr>
+							</tbody>
+							
+							</table>
+							<div style=" float:right;">			
+								<pagination-controls class="my-pagination" (pageChange)="p = $event"  class = "pagination"></pagination-controls>
+							</div>
+							<br />
+						</div>
+						
+					</div>
+					
+					<!-- <div class="inputfield">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12">
+										<legend>Summary</legend>
+									</div>
+									<div class="col-12">
+										<textarea name="" cols="" rows=""></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="inputfield">
+						<div class="row">
+							<div class="col-12">
+								<!-- <legend>Upload Documents <span>(Allowed file types: pdf, .doc, .ppt. docx)</span></legend> -->
+							</div>
+							<div class="col-12" id="uploadDoc">
+								<!-- <h3>Select files from your computer</h3> -->
+								<div class="row">
+
+									<div class="clearfix"></div>
+									<!-- <div class="col-12">
+										<label>Comments/Remarks </label>
+									<textarea name="" cols="" rows=""></textarea>
+								</div> -->
+
+									<!-- Drop Zone -->
+
+									<div class="col-12">
+										<!-- <div class="upload-drop-zone" id="dro--zone"> Just drag and drop files here </div> -->
+									</div>
+									<div class="col-6">
+										<!-- <button class="table-add">+ Add More</button> -->
+									</div>
+									<div class="col-6 text-right" style="display:inline;">
+										<!-- <input type="image" src="assets/img/btn-upload.png" style="float:right;"> -->
+										<!-- <input type="file" name="files[]" id="js-upload-files" multiple> -->
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-12 padding-bottom-50">
+					<div class="row">
+						<div class="col-3">&nbsp;</div>
+						<div class="col-3"> </div>
+						<div class="col-3">
+							<!-- <input name="Cancel" type="button" value="Cancel" class="btn-cancel"> -->
+						</div>
+						<!-- <div class="col-3">
+								<input name="Submit" type="submit" class="btn-submit" value="Create Ticket">
+							</div> -->
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<app-discuss #discuss></app-discuss>
+
+	<!-- Bootstrap core JavaScript
+			================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+	<script src="js/vendor/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<script src="js/jquery-2.1.4.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+	<script>
+			+ function ($) {
+				'use strict';
+
+				// UPLOAD CLASS DEFINITION
+				// ======================
+
+				var dropZone = document.getElementById('drop-zone');
+				var uploadForm = document.getElementById('js-upload-form');
+
+				var startUpload = function (files) {
+
+				}
+
+				uploadForm.addEventListener('submit', function (e) {
+					var uploadFiles = document.getElementById('js-upload-files').files;
+					e.preventDefault()
+
+					startUpload(uploadFiles)
+				})
+
+				dropZone.ondrop = function (e) {
+					e.preventDefault();
+					this.className = 'upload-drop-zone';
+
+					startUpload(e.dataTransfer.files)
+				}
+
+				dropZone.ondragover = function () {
+					this.className = 'upload-drop-zone drop';
+					return false;
+				}
+
+				dropZone.ondragleave = function () {
+					this.className = 'upload-drop-zone';
+					return false;
+				}
+
+			}(jQuery);
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("files-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		var closebtns = document.getElementsByClassName("input-close");
+		var i;
+
+		for (i = 0; i < closebtns.length; i++) {
+			closebtns[i].addEventListener("click", function () {
+				this.parentElement.style.display = 'none';
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			var date_input = $('input[name="date"]'); //our date input has the name "date"
+			var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+			date_input.datepicker({
+				format: 'dd/mm/yyyy',
+				container: container,
+				todayHighlight: true,
+				autoclose: true,
+			})
+		})
+	</script>
+</body>
+
+</html>
